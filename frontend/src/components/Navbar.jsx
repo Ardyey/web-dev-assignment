@@ -26,7 +26,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
-          MERN TaskApp
+          Task App
         </Link>
 
         {/* Hamburger Menu Icon */}
