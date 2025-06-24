@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axiosInstance from '../api/axiosInstance';
 import TaskItem from '../components/TaskItem'; // Assuming TaskItem will be in this path
 import TaskForm from '../components/TaskForm'; // Assuming TaskForm will be in this path
@@ -8,6 +8,7 @@ const DashboardPage = () => {
   const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(null); // To manage which task is being edited
   const [notification, setNotification] = useState(null); // For success/error messages
+  const formSectionRef = useRef(null); // Reference to the form section for scrolling
 
   const fetchTasks = useCallback(async () => {
     try {
@@ -66,6 +67,17 @@ const DashboardPage = () => {
 
   const handleEdit = (task) => {
     setEditingTask(task);
+
+    // Scroll to the form section smoothly using ref
+    setTimeout(() => {
+      if (formSectionRef.current) {
+        formSectionRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        });
+      }
+    }, 100); // Small delay to ensure state update is processed
   };
 
   const handleCancelEdit = () => {
@@ -90,17 +102,22 @@ const DashboardPage = () => {
         </div>
       )}
 
-      <div className="dashboard-header">
+      <div className="dashboard-header" ref={formSectionRef}>
         <h1 className="dashboard-title">Task Dashboard</h1>
         <p className="dashboard-subtitle">Manage your tasks efficiently</p>
       </div>
 
       <div className="dashboard-content">
-        <div className="task-form-section">
+        <div className={`task-form-section ${editingTask ? 'editing-mode' : ''}`}>
           <div className="section-header">
             <h2 className="section-title">
-              {editingTask ? 'Edit Task' : 'Create New Task'}
+              {editingTask ? '✏️ Edit Task' : '➕ Create New Task'}
             </h2>
+            {editingTask && (
+              <span className="editing-indicator">
+                Editing: {editingTask.title}
+              </span>
+            )}
           </div>
           <TaskForm
             onSubmit={editingTask ? (data) => handleUpdateTask(editingTask._id, data) : handleCreateTask}
