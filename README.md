@@ -14,13 +14,16 @@ This is a simple task manager application that allows users to register, log in,
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/Ardyey/web-dev-assignment.git
+    git clone <repository-url>
     ```
 2.  **Navigate to the project directory:**
     ```bash
     cd web-dev-assignment
     ```
-3.  **Run the application using Docker Compose:**
+3.  **Create environment files:**
+    Create `.env` files in both `backend` and `frontend` directories.
+
+4.  **Run the application using Docker Compose:**
     ```bash
     docker-compose up --build
     ```
@@ -36,11 +39,20 @@ This is a simple task manager application that allows users to register, log in,
 | PUT    | /api/tasks/:id       | Update a task          | Yes       |
 | DELETE | /api/tasks/:id       | Delete a task          | Yes       |
 
-## Backend Environment Variables
+## Environment Variables
 
-Create a `.env` file in the `backend` directory with the following variables:
+Create a `.env` file in the `backend` and `frontend` directories with the following variables:
+
+**Backend**
 
 ```
 PORT=5000
 MONGO_URI=<your_mongodb_uri>
 JWT_SECRET=<your_jwt_secret>
+```
+
+**Frontend**
+
+```
+VITE_BACKEND_URL=<your_backend_url>
+```
