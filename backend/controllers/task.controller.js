@@ -20,7 +20,8 @@ const setTask = async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     status: req.body.status,
-    user: req.user.id
+    user: req.user.id,
+    dueDate: req.body.dueDate
   });
 
   res.status(200).json(task);
