@@ -1,0 +1,122 @@
+/* General Page Styling */
+.login-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh; /* Full viewport height */
+  background-color: #f0f2f5; /* Light grey background */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Form Card Styling */
+.login-form-card {
+  background-color: #ffffff; /* White card background */
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  width: 100%;
+  max-width: 400px; /* Max width for the form card */
+  text-align: center;
+}
+
+.login-form-card h2 {
+  margin-bottom: 25px;
+  color: #333; /* Dark grey text */
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* Form Group Styling */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555; /* Medium grey text */
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #007bff; /* Blue border on focus */
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Focus shadow */
+}
+
+/* Button Styling */
+.login-button {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #007bff; /* Primary blue */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Error Message Styling */
+.error-message {
+  color: #dc3545; /* Red for errors */
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Register Link Styling */
+.register-link {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+}
+
+.register-link a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .login-form-card {
+    padding: 20px;
+  }
+
+  .login-form-card h2 {
+    font-size: 20px;
+  }
+
+  .form-group input,
+  .login-button {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+}

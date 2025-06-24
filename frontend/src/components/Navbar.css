@@ -1,0 +1,219 @@
+/* Navbar base styling */
+.navbar {
+  background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  max-width: 1300px;
+  padding: 0 24px; /* Adjusted padding */
+}
+
+/* Logo styling */
+.navbar-logo {
+  color: #fff;
+  justify-self: start;
+  margin-left: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.navbar-logo:hover {
+  color: #00bcd4; /* Accent color on hover */
+}
+
+/* Navigation menu styling */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  text-align: center;
+  margin-right: -22px; /* Adjust if necessary based on item padding */
+}
+
+.nav-item {
+  height: 80px;
+  display: flex; /* Ensure items are aligned */
+  align-items: center; /* Vertically align items */
+}
+
+/* Navigation links styling */
+.nav-links {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  height: 100%;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.nav-links:hover {
+  color: #00bcd4; /* Accent color on hover */
+  border-bottom: 4px solid #00bcd4;
+}
+
+/* Button style for logout */
+.nav-links-button {
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem 1rem;
+  height: auto; /* Adjust height to align with text links */
+  font-size: 1.2rem; /* Match font size of other nav links */
+  cursor: pointer;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  font-family: inherit; /* Ensure font matches */
+}
+
+.nav-links-button:hover {
+  color: #fff;
+  background-color: #007bff; /* Primary color for button hover */
+  border-radius: 4px;
+}
+
+
+/* User greeting */
+.nav-user {
+  color: #e0e0e0; /* Lighter text for greeting */
+  padding: 0.5rem 1rem;
+  font-style: italic;
+}
+
+
+/* Responsive Design: Mobile Menu Icon */
+.menu-icon {
+  display: none; /* Hidden on larger screens */
+  flex-direction: column;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+/* Hamburger lines */
+.hamburger {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 3px 0;
+  transition: 0.3s;
+  transform-origin: center;
+}
+
+/* Hamburger animation when open */
+.hamburger.open:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.open:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+@media screen and (max-width: 960px) {
+  .navbar-container {
+    padding: 0 20px;
+  }
+
+  .nav-menu {
+    margin-right: 0;
+  }
+
+  .nav-links {
+    padding: 0.5rem 0.75rem;
+    font-size: 1.1rem;
+  }
+  
+  .nav-links-button {
+    font-size: 1.1rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .navbar-logo {
+    font-size: 1.8rem;
+    margin-left: 10px;
+  }
+  
+}
+
+@media screen and (max-width: 768px) {
+  .nav-menu {
+    flex-direction: column;
+    position: fixed;
+    top: 80px;
+    left: -100%; /* Hidden by default */
+    width: 100%;
+    height: calc(100vh - 80px);
+    background: linear-gradient(180deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
+    transition: left 0.3s ease-in-out;
+    z-index: 999;
+    padding-top: 2rem;
+  }
+
+  .nav-menu.active {
+    left: 0; /* Show menu when active */
+  }
+
+  .nav-item {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #333;
+  }
+
+  .nav-links, .nav-links-button {
+    text-align: center;
+    padding: 1.5rem;
+    width: 100%;
+    display: block;
+    color: #fff;
+    font-size: 1.1rem;
+  }
+
+  .nav-links:hover, .nav-links-button:hover {
+    border-bottom: none;
+    color: #00bcd4;
+    background-color: #333;
+  }
+
+  .navbar-logo {
+    margin-left: 20px;
+  }
+
+  /* Show hamburger menu icon on mobile */
+  .menu-icon {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+  }
+
+  /* User greeting styling for mobile */
+  .nav-user {
+    color: #e0e0e0;
+    padding: 1rem;
+    font-style: italic;
+    border-bottom: none;
+    text-align: center;
+  }
+}
