@@ -21,8 +21,16 @@ FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Copy the Nginx configuration file
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy the Nginx configuration file as a template
+COPY nginx.conf /etc/nginx/conf.d/default.conf.template
 
-# Expose port 80 and start Nginx
+# Install gettext for envsubst
+RUN apk add --no-cache gettext
+
+# Copy the entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Expose port 80 and set the entrypoint
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/entrypoint.sh"]
