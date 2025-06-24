@@ -197,7 +197,7 @@ const DashboardPage = () => {
             </h2>
             {editingTask && (
               <span className="editing-indicator">
-                Editing: {editingTask.title}
+                Editing
               </span>
             )}
           </div>

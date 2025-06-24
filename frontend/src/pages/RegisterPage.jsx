@@ -30,8 +30,8 @@ const RegisterPage = () => {
         auth.login(response.data.user, response.data.token);
         navigate('/dashboard');
       } else {
-        setSuccess('Registration successful! Please login.');
-        setTimeout(() => navigate('/login'), 2000);
+        setSuccess('Registration successful! Please login. Redirecting in 3 seconds.');
+        setTimeout(() => navigate('/login'), 3000);
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed. Please try again.');
