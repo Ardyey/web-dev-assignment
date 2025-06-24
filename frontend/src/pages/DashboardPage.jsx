@@ -8,6 +8,7 @@ const DashboardPage = () => {
   const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(null); // To manage which task is being edited
   const [notification, setNotification] = useState(null); // For success/error messages
+  const [deleteConfirmation, setDeleteConfirmation] = useState(null); // For delete confirmation dialog
   const formSectionRef = useRef(null); // Reference to the form section for scrolling
 
   const fetchTasks = useCallback(async () => {
@@ -54,16 +55,56 @@ const DashboardPage = () => {
     }
   };
 
-  const handleDeleteTask = async (taskId) => {
+  const handleDeleteTask = (task) => {
+    // Show confirmation dialog instead of immediately deleting
+    setDeleteConfirmation({
+      task,
+      isOpen: true
+    });
+  };
+
+  const confirmDeleteTask = async () => {
+    if (!deleteConfirmation?.task) return;
+
     try {
-      await axiosInstance.delete(`/tasks/${taskId}`);
+      await axiosInstance.delete(`/tasks/${deleteConfirmation.task._id}`);
       fetchTasks(); // Re-fetch tasks
       showNotification('Task deleted successfully!', 'success');
+      setDeleteConfirmation(null); // Close confirmation dialog
     } catch (error) {
       console.error('Error deleting task:', error);
       showNotification('Failed to delete task. Please try again.', 'error');
+      setDeleteConfirmation(null); // Close confirmation dialog even on error
     }
   };
+
+  const cancelDeleteTask = () => {
+    setDeleteConfirmation(null);
+  };
+
+  // Handle keyboard events for the confirmation dialog
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (deleteConfirmation?.isOpen) {
+        if (event.key === 'Escape') {
+          cancelDeleteTask();
+        } else if (event.key === 'Enter') {
+          confirmDeleteTask();
+        }
+      }
+    };
+
+    if (deleteConfirmation?.isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [deleteConfirmation?.isOpen]);
 
   const handleEdit = (task) => {
     setEditingTask(task);
@@ -99,6 +140,47 @@ const DashboardPage = () => {
           >
             ×
           </button>
+        </div>
+      )}
+
+      {/* Delete Confirmation Dialog */}
+      {deleteConfirmation?.isOpen && (
+        <div className="modal-overlay" onClick={cancelDeleteTask}>
+          <div className="confirmation-dialog" onClick={(e) => e.stopPropagation()}>
+            <div className="dialog-header">
+              <h3 className="dialog-title">🗑️ Delete Task</h3>
+            </div>
+            <div className="dialog-content">
+              <p className="dialog-message">
+                Are you sure you want to delete this task?
+              </p>
+              <div className="task-preview">
+                <strong>"{deleteConfirmation.task.title}"</strong>
+                {deleteConfirmation.task.description && (
+                  <p className="task-preview-description">
+                    {deleteConfirmation.task.description}
+                  </p>
+                )}
+              </div>
+              <p className="dialog-warning">
+                This action cannot be undone.
+              </p>
+            </div>
+            <div className="dialog-actions">
+              <button
+                className="btn btn-secondary"
+                onClick={cancelDeleteTask}
+              >
+                Cancel
+              </button>
+              <button
+                className="btn btn-danger"
+                onClick={confirmDeleteTask}
+              >
+                Delete Task
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
@@ -146,7 +228,7 @@ const DashboardPage = () => {
                   <TaskItem
                     key={task._id}
                     task={task}
-                    onDelete={() => handleDeleteTask(task._id)}
+                    onDelete={() => handleDeleteTask(task)}
                     onEdit={() => handleEdit(task)} // Pass function to set task for editing
                   />
                 ))}
